@@ -45,6 +45,9 @@ async def get_shared_session():
 
 # === FASTAPI APP WITH LIFESPAN ===
 app = FastAPI()
+@app.get("/")
+async def health():
+    return {"status": "ok", "service": "shopify-api"}
 app.state.limiter = limiter
 app.add_exception_handler(429, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
